@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('level-air',[App\Http\Controllers\GrafikAirController::class,'create']);
+Route::get('level-air',[App\Http\Controllers\GrafikAirController::class,'index']);
+Route::post('level-air',[App\Http\Controllers\GrafikAirController::class,'create']);

@@ -18,7 +18,7 @@ class CreatePengukurAirsTable extends Migration
             $table->string('id_alat');
             $table->string('nama');
             $table->string('posisi');
-            $table->float('nilai');
+            $table->string('warna_label')->nullable();
             $table->dateTime('waktu');
             $table->boolean('status');
             $table->timestamps();

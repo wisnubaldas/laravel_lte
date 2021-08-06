@@ -19,6 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', function() {
-    return view('home');
-})->name('home')->middleware('auth');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+        ->name('home')
+        ->middleware('auth');
+Route::get('/get_data',[App\Http\Controllers\HomeController::class, 'get_data']);
+Route::get('/create-alat-pengukur',[App\Http\Controllers\HomeController::class, 'create']);
+Route::post('/create-alat-pengukur',[App\Http\Controllers\HomeController::class, 'save']);
+
+

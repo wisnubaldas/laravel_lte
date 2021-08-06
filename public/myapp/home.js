@@ -39,55 +39,51 @@ let apps = {
                                 }
                 };
     },
-    chartLevelAir:function()
+    chartLevelAir:function(jmlAlat)
     {
         Chart.defaults.set('plugins.streaming', {
             duration: 20000
         });
         const onRefresh = chart => {
                 const now = Date.now();
-                chart.data.datasets.forEach(dataset => {
-                    dataset.data.push({
-                        x: now,
-                        y: Math.floor((Math.random() * 100) + 1)
-                    });
+                $.get('/get_data',function(xhr){
+                    for (let i = 0; i < xhr.length; i++) {
+                        const elm = xhr[i];
+                        chart.data.datasets[i].data.push({
+                                        x: now,
+                                        y: elm.nilai
+                        })
+                        chart.data.datasets[i].backgroundColor.push(`rgba(${elm.pengukur_air.warna_label}, 0.2)`);
+                        chart.data.datasets[i].borderColor.push(`rgba(${elm.pengukur_air.warna_label}, 1)`);
+                        chart.data.datasets[i].label = elm.pengukur_air.id_alat;
+                    }
                 });
         };
-
         var ctx = document.getElementById('myChart');
+        // bikin default dataset
+            dSet = [];
+            for (let i = 0; i < jmlAlat; i++) {
+                dSet.push({
+                    label: '',
+                    data: [],
+                    backgroundColor: [],
+                    borderColor: [],
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.3
+                })
+            }
         return new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0.3
-                }]
+                datasets: dSet
             },
             options: {
                 plugins: {
                 // Change options for ALL axes of THIS CHART
                 streaming: {
-                        duration: 20000
+                        duration: 20000,
+                        frameRate: 5
                     }
                 },
                 interaction: {
@@ -102,9 +98,11 @@ let apps = {
                         type: 'realtime',
                         // Change options only for THIS AXIS
                         realtime: {
-                            duration: 40000,
-                            refresh: 1000,
-                            delay: 2000,
+                            duration: 70000,
+                            refresh: 2000,
+                            delay: 1000,
+                            ttl: undefined,
+                            frameRate: 30,
                             onRefresh: onRefresh
                         }
                     }
@@ -121,6 +119,12 @@ let apps = {
             "info": true,
             "autoWidth": false,
         });
+    },
+    randomRGBA:function(persen){
+        const randomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+        const randomByte = () => randomNumber(50, 255)
+        const randomPercent = () => (randomNumber(50, 100) * 0.01).toFixed(2)
+        return [randomByte(), randomByte(), randomByte()].join(',');
     }
 }
 

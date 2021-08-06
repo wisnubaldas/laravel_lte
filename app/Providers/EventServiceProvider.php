@@ -36,6 +36,10 @@ class EventServiceProvider extends ServiceProvider
                 'url' => 'home',
             ]);
             $event->menu->add([
+                'text' => 'Alat Pengukur Air',
+                'url' => '/create-alat-pengukur',
+            ]);
+            $event->menu->add([
                 'text' => 'Report',
                 'url' => 'home/report',
             ]);

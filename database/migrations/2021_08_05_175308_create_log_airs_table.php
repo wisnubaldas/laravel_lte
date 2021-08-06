@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGrafikAirsTable extends Migration
+class CreateLogAirsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreateGrafikAirsTable extends Migration
      */
     public function up()
     {
-        Schema::create('grafik_airs', function (Blueprint $table) {
+        Schema::create('log_airs', function (Blueprint $table) {
             $table->id();
             $table->integer('pengukur_air_id');
             $table->integer('nilai');
-            $table->integer('nilai_awal')->nullable();
-            $table->string('batas_air')->nullable();
-            $table->dateTime('waktu')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreateGrafikAirsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('grafik_airs');
+        Schema::dropIfExists('log_airs');
     }
 }
