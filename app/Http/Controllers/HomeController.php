@@ -50,4 +50,5 @@ class HomeController extends Controller
         $p->save();
         return back();
     }
+
 }

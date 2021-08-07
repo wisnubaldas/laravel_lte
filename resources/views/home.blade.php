@@ -3,7 +3,50 @@
 @section('title', 'Arfa Robot')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Dashboard Monitoring Level Air</h1>
+<div class="row">
+    <div class="col-12">
+        <h5>
+            <small class="text-muted">Kota:</small> <span class="navy" id='kota'></span>&emsp;
+            <small class="text-muted">Propinsi:</small> <span id="propinsi"></span>&emsp;
+            <small class="text-muted">Kordinat:</small> <span id="kor"></span>&emsp;
+            <small class="text-muted">Waktu Update:</small> <span id="time"></span>
+        </h5>
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+        <span class="info-box-icon bg-olive"><i class="fas fa-cloud-meatball"></i></span>
+        <div class="info-box-content" id="hu"></div>
+        <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+        <span class="info-box-icon bg-danger"><i class="fas fa-temperature-high"></i></span>
+        <div class="info-box-content" id="t"></div>
+        <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+        <span class="info-box-icon bg-success"><i class="fas fa-cloud-sun"></i></span>
+        <div class="info-box-content" id="weather"></div>
+        <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+    <div class="col-md-3 col-sm-6 col-12">
+        <div class="info-box">
+        <span class="info-box-icon bg-primary"><i class="fas fa-wind"></i></span>
+        <div class="info-box-content" id="ws"></div>
+        <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+    </div>
+
+</div>
+
 @stop
 
 @section('plugins.Chartjs', true)
@@ -46,6 +89,7 @@
                         <th>Date Live</th>
                         <th>Last Value</th>
                         <th>Status Power</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +100,7 @@
                             <td>{{$item->waktu}}</td>
                             <td>{{$item->nilai}}</td>
                             <td>{{($item->status == 1)?'ON':'OFF'}}</td>
+                            <td><a class="btn {{($item->status == 1)?'btn-success':'btn-danger'}}" href="#"><i class="fas fa-power-off"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -69,6 +114,7 @@
     <script src="https://cdn.jsdelivr.net/npm/luxon@1.27.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
+    <script src="{{ url('myapp/localForge.js') }}" ></script>
     <script src="{{ url('myapp/home.js') }}" ></script>
 
     <script>
@@ -79,13 +125,45 @@
     </script>
 
     <script>
+        // console.log('localforage is: ', localforage);
         /* Realtime line chart ChartJS */
-        // console.log(alat);
         const jmlAlat = "{{count($alat)}}";
         $(document).ready(function() {
-            // setInterval(function(){
-            //     load_notification();
-            // }, 5000);
+            setInterval(function(){
+                // get data BGKG
+                apps.ajaxPerDay.run('/api/get-data-bmkg');
+                localforage.getItem('data_bmg').then(function(value) {
+                    // This code runs once the value has been loaded
+                    // from the offline store.
+                    const dataBmg = value[0];
+                    // console.log(dataBmg);
+                    $('#kota').html(dataBmg.kota);
+                    $('#propinsi').html(dataBmg.propinsi);
+                    $('#kor').html(dataBmg.cor);
+                    $('#time').html(dataBmg.waktu);
+
+                    $('#hu').html(`
+                        <span class="info-box-text">${dataBmg.cuaca[0].desc}</span>
+                        <span class="info-box-number">${dataBmg.cuaca[0].value[0]}</span>
+                    `)
+                    $('#t').html(`
+                        <span class="info-box-text">${dataBmg.cuaca[5].desc}</span>
+                        <span class="info-box-number">${dataBmg.cuaca[5].value[0]}, ${dataBmg.cuaca[5].value[1]}</span>
+                    `)
+                    $('#weather').html(`
+                        <span class="info-box-text">${dataBmg.cuaca[6].desc}</span>
+                        <span class="info-box-number">${dataBmg.cuaca[6].value[0]}</span>
+                    `)
+                    $('#ws').html(`
+                        <span class="info-box-text">${dataBmg.cuaca[8].desc}</span>
+                        <span class="info-box-number">${dataBmg.cuaca[8].value[1]}</span>
+                    `)
+
+                }).catch(function(err) {
+                    // This code runs if there were any errors
+                    console.log(err);
+                });
+            },3000);
 
             apps.chartLevelAir(jmlAlat);
             apps.dataTable($('#example'));

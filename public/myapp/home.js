@@ -1,4 +1,5 @@
 /* Chart Gauge buat motor */
+
 // Gauge option
 let apps = {
     gaugeOptions:function() {
@@ -44,6 +45,7 @@ let apps = {
         Chart.defaults.set('plugins.streaming', {
             duration: 20000
         });
+
         const onRefresh = chart => {
                 const now = Date.now();
                 $.get('/get_data',function(xhr){
@@ -125,6 +127,45 @@ let apps = {
         const randomByte = () => randomNumber(50, 255)
         const randomPercent = () => (randomNumber(50, 100) * 0.01).toFixed(2)
         return [randomByte(), randomByte(), randomByte()].join(',');
+    },
+    ajaxPerDay:{
+        hasOneDayPassed:function()
+        {
+            // get today's date. eg: "7/37/2007"
+            // var date = new Date().toLocaleDateString();
+            var date = new Date().getHours();
+
+            // if there's a date in localstorage and it's equal to the above:
+            // inferring a day has yet to pass since both dates are equal.
+            if( localStorage.cek_date == date )
+                return false;
+
+            // this portion of logic occurs when a day has passed
+            localStorage.cek_date = date;
+            return true;
+        },
+        runOncePerDay:function(uri)
+        {
+            if( !this.hasOneDayPassed() ) return false;
+            // first get ajax data
+            // alert('sdadasd');
+
+            $.get(uri,function(xhr){
+                // console.log(xhr);
+                // Unlike localStorage, you can store non-strings.
+                localforage.setItem('data_bmg', xhr).then(function(value) {
+                    // This will output `1`.
+                    console.log(value);
+                }).catch(function(err) {
+                    // This code runs if there were any errors
+                    console.log(err);
+                });
+            });
+        },
+        run(uri)
+        {
+            this.runOncePerDay(uri);
+        }
     }
 }
 
