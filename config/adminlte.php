@@ -278,6 +278,16 @@ return [
     */
 
     'plugins' => [
+        'CssAnimate'=>[
+            'active'=>true,
+            'files'=>[
+                [
+                    'type'=>'css',
+                    'asset'=>false,
+                    'location'=>'//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css'
+                ]
+            ],
+        ],
         'BootstrapSelect' => [
             'active' => false,
             'files' => [

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\GrafikAir;
 use App\Models\PengukurAir;
 use App\Models\LogAir;
+use App\Models\AlaramAir;
+
 class HomeController extends Controller
 {
     /**
@@ -25,12 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $alat = PengukurAir::with('grafik_air')->get();
+        $alat = PengukurAir::with(['grafik_air','alaram'])->get();
         return view('home',compact('alat'));
     }
     public function get_data()
     {
-        return GrafikAir::with('pengukur_air')->get();
+        return GrafikAir::with(['pengukur_air',])->get();
     }
     public function create()
     {
@@ -48,6 +50,19 @@ class HomeController extends Controller
         $p->status = $request->status;
         $p->waktu = date('Y-m-d H:i:s',strtotime('now'));
         $p->save();
+        return back();
+    }
+    public function alaram_on_off($id)
+    {
+        $alaram = AlaramAir::where('pengukur_air_id',$id)->first();
+        if($alaram->status == 1)
+        {
+            $alaram->status = 0;
+            $alaram->save();
+        }else{
+            $alaram->status = 1;
+            $alaram->save();
+        }
         return back();
     }
 

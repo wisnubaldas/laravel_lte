@@ -22,5 +22,8 @@ Route::post('level-air',[App\Http\Controllers\GrafikAirController::class,'create
 Route::post('level-air',[App\Http\Controllers\GrafikAirController::class,'create']);
 Route::get('data-bmkg',[App\Http\Controllers\GrafikAirController::class,'data_bmkg']);
 Route::get('get-data-bmkg',[App\Http\Controllers\GrafikAirController::class,'get_data_bmkg']);
+Route::get('get-data-status/{id}', [App\Http\Controllers\GrafikAirController::class,'get_status']);
+Route::get('send-data-status/{id}', [App\Http\Controllers\GrafikAirController::class,'send_status']);
+
 
 

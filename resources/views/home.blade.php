@@ -46,6 +46,7 @@
     </div>
 
 </div>
+{{-- <h1 class="animate__animated animate__flash animate__infinite">An animated element</h1> --}}
 
 @stop
 
@@ -62,22 +63,29 @@
             </div>
         </div>
         <div class="col-4">
-            <div class="card">
-                <div class="card-body">
-                        @foreach ($alat as $item)
-                            <div class="info-box">
-                                <span class="info-box-icon {{($item->status == 1)?'bg-success':'bg-danger'}} elevation-1">
-                                    <i class="fas fa-power-off"></i>
-                                </span>
-                                <div class="info-box-content">
-                                <span class="info-box-text">Sensor {{$item->id_alat}}</span>
+            @foreach ($alat as $item)
+                <div class="info-box {{$item->alaram->status == 0?'bg-gradient-success':'bg-gradient-danger animate__animated animate__flash animate__infinite'}}">
 
-                                <span class="info-box-text">{{($item->status == 1)?'Sensor Keadaan Active':'Sensor Keadaan Mati'}}</span>
-                                </div>
-                            </div>
-                        @endforeach
+                    <span class="info-box-icon">
+                        <i class="far fa-bell fa-2x"></i>
+                    </span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Alaram Sensor {{$item->id_alat}}</span>
+                        <span class="info-box-text">Posisi Sensor {{$item->posisi}}</span>
+
+                        <div class="progress">
+                        <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-description">
+                        Waktu Update: {{$item->alaram->updated_at}}
+                        </span>
+                    </div>
+                <!-- /.info-box-content -->
                 </div>
-            </div>
+            @endforeach
+
+            {{-- @dump($alat); --}}
         </div>
         <div class="col-8">
             <h5>Last Value Table</h5>
@@ -89,7 +97,7 @@
                         <th>Date Live</th>
                         <th>Last Value</th>
                         <th>Status Power</th>
-                        <th>#</th>
+                        <th>Alaram</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -98,15 +106,20 @@
                             <td>{{$item->nama}}</td>
                             <td>{{$item->posisi}}</td>
                             <td>{{$item->waktu}}</td>
-                            <td>{{$item->nilai}}</td>
+                            <td id="last-val-{{$item->grafik_air->id}}">{{$item->grafik_air->nilai}}</td>
                             <td>{{($item->status == 1)?'ON':'OFF'}}</td>
-                            <td><a class="btn {{($item->status == 1)?'btn-success':'btn-danger'}}" href="#"><i class="fas fa-power-off"></i></a></td>
+                            <td>
+                                <a class="btn {{($item->alaram->status == 0)?'btn-success':'btn-danger'}}" href="/power-alaram/{{$item->id}}">
+                                    <i class="fas fa-power-off"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+    {{-- @dump($alat) --}}
 @stop
 
 @push('js')
@@ -170,4 +183,9 @@
         });
     </script>
 
+@endpush
+@push('css')
+<style>
+
+</style>
 @endpush

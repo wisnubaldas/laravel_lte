@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\GrafikAir;
 use App\Models\PengukurAir;
+use App\Models\AlaramAir;
 use App\Models\LogAir;
 use Faker\Provider\Base as Faker;
 use Illuminate\Support\Facades\Http;
@@ -14,6 +15,33 @@ class GrafikAirController extends Controller
     public function index()
     {
         return GrafikAir::all();
+    }
+    public function get_status($id)
+    {
+        $alat = PengukurAir::find($id);
+        if(!$alat)
+        {
+            return abort(404);
+        }else{
+            $alaram = AlaramAir::where('pengukur_air_id',$id)->first();
+            if($alaram->status == 1)
+            {
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }
+    }
+    public function send_status($id)
+    {
+        $alat = PengukurAir::find($id);
+        if(!$alat)
+        {
+            return abort(404);
+        }else{
+            $alaram = AlaramAir::where('pengukur_air_id',$id)->update(['status'=>0]);
+            echo 0;
+        }
     }
     protected function log_air($id,$nilai)
     {
