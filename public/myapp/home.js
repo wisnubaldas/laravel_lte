@@ -1,4 +1,3 @@
-/* Chart Gauge buat motor */
 
 // Gauge option
 let apps = {
@@ -172,11 +171,43 @@ let apps = {
     },
     setNilaiAlat:{
         onSelectAlat:function(el,callback){
-            el.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-                callback($(this).val());
-            });
+            el.on('select2:select', function (e) {
+                        $.ajax({
+                            url: '/nilai-air',
+                            type: 'GET',
+                            data: {
+                                id_alat: $(this).val()
+                            }
+                    }).done(function(data){
+                        callback(data);
+                    }).fail(function(data){
+                        console.log(data.responseJSON);
+                    });
+              });
         }
     },
+    template:{
+        form:{
+            NilaiAlat:function(data,el)
+            {
+                const frm = `
+                    <div class="form-group">
+                        <label for="warna_label">Batas Air </label>
+                        <input value="${data.batas_air}" type="text" class="form-control form-control-sm" name="batas_air" id="batas_air">
+                    </div>
+                    <div class="form-group">
+                        <label for="warna_label">Nilai Awal </label>
+                        <input value="${data.nilai_awal}" type="text" class="form-control form-control-sm" name="nilai_awal" id="nilai_awal">
+                        <input value="${data.id}" type="text" name="id" hidden>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </div>
+                `;
+                el.find('form').append(frm);
+            }
+        }
+    }
 }
 
 

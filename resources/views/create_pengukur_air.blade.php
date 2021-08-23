@@ -52,12 +52,11 @@
             <!-- /.card -->
         </div>
         <div class="col-md-4">
-            @dump($alat)
             <!-- general form elements -->
             <div class="card card-primary">
                 <div class="card-body">
                     <div class="form-group">
-                        <label for="warna_label">Set Nilai Alat </label>
+                        <label for="warna_label">Set Nilai Batas Atas Air & Nilai Batas Alaram  </label>
                         <select class="select2bs4" name="alat" id="alat-pengukur" autocomplete="off" style="width: 100%">
                           <option selected > ### Pilih Alat ###</option>
                             @foreach ($alat as $item)
@@ -66,6 +65,11 @@
                         </select>
 
                     </div>
+                </div>
+                <div class="card-body" id="frm-setnilai">
+                    <form action="/nilai-air" method="POST">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </div>
@@ -79,12 +83,13 @@
     <script src="{{url('vendor/select2/js/select2.full.min.js')}}"></script>
     <script src="{{ url('myapp/home.js') }}" ></script>
     <script>
+        let frm = apps.template.form;
         $(document).ready(function () {
             $('.select2bs4').select2({
                 theme: 'bootstrap4'
             })
-            apps.setNilaiAlat.onSelectAlat($('#alat-pengukur'),function(a){
-                console.log(a)
+            apps.setNilaiAlat.onSelectAlat($('.select2bs4'),function(a){
+                frm.NilaiAlat(a,$('#frm-setnilai'))
             });
         })
     </script>

@@ -26,6 +26,10 @@ Route::get('/get_data',[App\Http\Controllers\HomeController::class, 'get_data'])
 Route::get('/create-alat-pengukur',[App\Http\Controllers\HomeController::class, 'create']);
 Route::post('/create-alat-pengukur',[App\Http\Controllers\HomeController::class, 'save']);
 Route::get('/power-alaram/{id}',[App\Http\Controllers\HomeController::class, 'alaram_on_off']);
+Route::get('/nilai-air',[App\Http\Controllers\HomeController::class, 'nilai_air']);
+Route::post('/nilai-air',[App\Http\Controllers\HomeController::class, 'nilai_air']);
+
+
 
 
 

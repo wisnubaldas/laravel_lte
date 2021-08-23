@@ -55,7 +55,7 @@ class HomeController extends Controller
     }
     public function alaram_on_off($id)
     {
-        $alaram = AlaramAir::where('pengukur_air_id',$id)->first();
+        $alaram = $this->get_alaram($id);
         if($alaram->status == 1)
         {
             $alaram->status = 0;
@@ -65,6 +65,21 @@ class HomeController extends Controller
             $alaram->save();
         }
         return back();
+    }
+    public function nilai_air(Request $request)
+    {
+        if ($request->method() == 'GET') {
+            return GrafikAir::where('pengukur_air_id',$request->id_alat)->first();
+        }
+        $grafik = GrafikAir::find($request->id);
+        $grafik->batas_air = $request->batas_air;
+        $grafik->nilai_awal = $request->nilai_awal;
+        $grafik->save();
+        return back();
+    }
+    protected function get_alaram($id)
+    {
+        return AlaramAir::where('pengukur_air_id',$id)->first();
     }
 
 }
