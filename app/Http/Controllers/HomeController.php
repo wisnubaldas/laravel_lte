@@ -36,7 +36,8 @@ class HomeController extends Controller
     }
     public function create()
     {
-        return view('create_pengukur_air');
+        $alat = PengukurAir::with(['grafik_air','alaram'])->get();
+        return view('create_pengukur_air',compact('alat'));
     }
     public function save(Request $request)
     {

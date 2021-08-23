@@ -144,29 +144,39 @@ let apps = {
             localStorage.cek_date = date;
             return true;
         },
-        runOncePerDay:function(uri)
+        runOncePerDay:function(uri,callback)
         {
-            if( !this.hasOneDayPassed() ) return false;
+            if(!this.hasOneDayPassed()) return false;
             // first get ajax data
             // alert('sdadasd');
 
             $.get(uri,function(xhr){
+                return callback(xhr);
                 // console.log(xhr);
                 // Unlike localStorage, you can store non-strings.
-                localforage.setItem('data_bmg', xhr).then(function(value) {
-                    // This will output `1`.
-                    console.log(value);
-                }).catch(function(err) {
-                    // This code runs if there were any errors
-                    console.log(err);
-                });
+                // localforage.setItem('data_bmg', xhr).then(function(value) {
+                //     // This will output `1`.
+                //     console.log(value);
+                // }).catch(function(err) {
+                //     // This code runs if there were any errors
+                //     console.log(err);
+                // });
             });
         },
-        run(uri)
+        run(uri,callback)
         {
-            this.runOncePerDay(uri);
+            this.runOncePerDay(uri,function(a){
+                return callback(a);
+            });
         }
-    }
+    },
+    setNilaiAlat:{
+        onSelectAlat:function(el,callback){
+            el.on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+                callback($(this).val());
+            });
+        }
+    },
 }
 
 

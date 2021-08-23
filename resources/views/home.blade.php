@@ -144,7 +144,10 @@
         $(document).ready(function() {
             setInterval(function(){
                 // get data BGKG
-                apps.ajaxPerDay.run('/api/get-data-bmkg');
+                apps.ajaxPerDay.run('/api/get-data-bmkg', function(data){
+                    console.log(data);
+                });
+
                 localforage.getItem('data_bmg').then(function(value) {
                     // This code runs once the value has been loaded
                     // from the offline store.
