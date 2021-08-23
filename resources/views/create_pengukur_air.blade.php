@@ -37,10 +37,10 @@
                   </div>
                   <div class="form-group">
                     <label for="warna_label">Status Alat </label>
-                    {{-- <x-adminlte-select-bs name="status">
+                    <select class="select2bs4" name="status" autocomplete="off" style="width: 100%">
                         <option value="1" selected>Active</option>
                         <option value="0" >Inactive</option>
-                    </x-adminlte-select-bs> --}}
+                      </select>
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -58,23 +58,31 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="warna_label">Set Nilai Alat </label>
-                        {{-- <x-adminlte-select-bs name="alat" id="alat-pengukur" autocomplete="off" >
-                            <option selected > ### Pilih Alat ###</option>
+                        <select class="select2bs4" name="alat" id="alat-pengukur" autocomplete="off" style="width: 100%">
+                          <option selected > ### Pilih Alat ###</option>
                             @foreach ($alat as $item)
                                 <option value="{{$item->id}}" >{{$item->id_alat}}</option>
                             @endforeach
-                        </x-adminlte-select-bs> --}}
+                        </select>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @stop
-
+@push('css')
+<link rel="stylesheet" href="{{url('vendor/select2/css/select2.min.css')}}">
+<link rel="stylesheet" href="{{url('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+@endpush
 @push('js')
+    <script src="{{url('vendor/select2/js/select2.full.min.js')}}"></script>
     <script src="{{ url('myapp/home.js') }}" ></script>
     <script>
         $(document).ready(function () {
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
             apps.setNilaiAlat.onSelectAlat($('#alat-pengukur'),function(a){
                 console.log(a)
             });
