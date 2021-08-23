@@ -6,7 +6,7 @@
     <h1 class="m-0 text-dark">Form Alat Pengukur Air</h1>
 @stop
 
-@section('plugins.BootstrapSelect', true)
+{{-- @section('plugins.BootstrapSelect', true) --}}
 @section('plugins.Datatables', true)
 
 @section('content')
@@ -58,12 +58,12 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="warna_label">Set Nilai Alat </label>
-                        <x-adminlte-select-bs name="alat" id="alat-pengukur" autocomplete="off" >
+                        {{-- <x-adminlte-select-bs name="alat" id="alat-pengukur" autocomplete="off" >
                             <option selected > ### Pilih Alat ###</option>
                             @foreach ($alat as $item)
                                 <option value="{{$item->id}}" >{{$item->id_alat}}</option>
                             @endforeach
-                        </x-adminlte-select-bs>
+                        </x-adminlte-select-bs> --}}
                     </div>
                 </div>
             </div>
