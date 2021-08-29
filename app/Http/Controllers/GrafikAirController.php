@@ -19,19 +19,21 @@ class GrafikAirController extends Controller
     }
     public function get_status($id)
     {
-        $alat = PengukurAir::find($id);
-        if(!$alat)
-        {
-            return abort(404);
-        }else{
-            $alaram = AlaramAir::where('pengukur_air_id',$id)->first();
-            if($alaram->status == 1)
+        // $alat = PengukurAir::find($id);
+        // if(!$alat)
+        // {
+        //     return abort(404);
+        // }else{
+        Log::debug('akses dari alat buat alaram');
+
+            $alaram = AlaramAir::where('pengukur_air_id',1)->first();
+            if($alaram->status == $id)
             {
                 echo 1;
             }else{
                 echo 0;
             }
-        }
+        // }
     }
     public function send_status($id)
     {
