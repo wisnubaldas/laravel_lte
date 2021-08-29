@@ -10,6 +10,7 @@ use App\Models\LogAir;
 use Faker\Provider\Base as Faker;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 class GrafikAirController extends Controller
 {
     public function index()
@@ -52,6 +53,7 @@ class GrafikAirController extends Controller
     }
     public function create(Request $request,$id)
     {
+        Log::debug('akses dari alat');
         $id_alat = PengukurAir::where('id_alat',$request->id_alat)->first();
         $id = $id_alat->id;
         $grafik = GrafikAir::firstOrNew([
