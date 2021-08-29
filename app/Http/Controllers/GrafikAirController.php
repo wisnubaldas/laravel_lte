@@ -27,12 +27,13 @@ class GrafikAirController extends Controller
         Log::debug('akses dari alat buat alaram');
 
             $alaram = AlaramAir::where('pengukur_air_id',1)->first();
-            if($alaram->status == $id)
-            {
-                echo 1;
-            }else{
-                echo 0;
-            }
+            return $alaram->status;
+            // if($alaram->status == $id)
+            // {
+            //     echo 1;
+            // }else{
+            //     echo 0;
+            // }
         // }
     }
     public function send_status($id)
