@@ -50,7 +50,7 @@ class GrafikAirController extends Controller
         $log->nilai = $nilai;
         $log->save();
     }
-    public function create(Request $request)
+    public function create(Request $request,$id)
     {
         $id_alat = PengukurAir::where('id_alat',$request->id_alat)->first();
         $id = $id_alat->id;

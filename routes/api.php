@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('level-air',[App\Http\Controllers\GrafikAirController::class,'index']);
-Route::post('level-air',[App\Http\Controllers\GrafikAirController::class,'create']);
+Route::post('send-data-sensor/{id}',[App\Http\Controllers\GrafikAirController::class,'create']);
 Route::post('level-air',[App\Http\Controllers\GrafikAirController::class,'create']);
 Route::get('data-bmkg',[App\Http\Controllers\GrafikAirController::class,'data_bmkg']);
 Route::get('get-data-bmkg',[App\Http\Controllers\GrafikAirController::class,'get_data_bmkg']);
