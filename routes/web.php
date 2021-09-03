@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Traits\RouteTrait;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+RouteTrait::getRouteFile(__DIR__.'/web/');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
         ->name('home')
@@ -28,8 +29,3 @@ Route::post('/create-alat-pengukur',[App\Http\Controllers\HomeController::class,
 Route::get('/power-alaram/{id}',[App\Http\Controllers\HomeController::class, 'alaram_on_off']);
 Route::get('/nilai-air',[App\Http\Controllers\HomeController::class, 'nilai_air']);
 Route::post('/nilai-air',[App\Http\Controllers\HomeController::class, 'nilai_air']);
-
-
-
-
-
