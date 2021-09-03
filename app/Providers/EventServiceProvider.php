@@ -43,6 +43,11 @@ class EventServiceProvider extends ServiceProvider
                 'text' => 'Report',
                 'url' => 'home/report',
             ]);
+            // $event->menu->add('PEOPLE COUNTING');
+            // $event->menu->add('MONITORING SUHU');
+            // $event->menu->add('CONTROL AC');
+            // $event->menu->add('PANEL LISTRIK');
+
         });
     }
 }
