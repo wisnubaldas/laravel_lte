@@ -145,7 +145,7 @@ let apps = {
         },
         runOncePerDay:function(uri,callback)
         {
-            if(!this.hasOneDayPassed()) return false;
+            // if(!this.hasOneDayPassed()) return false;
             // first get ajax data
             // alert('sdadasd');
 

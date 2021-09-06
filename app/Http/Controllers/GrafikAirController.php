@@ -68,28 +68,28 @@ class GrafikAirController extends Controller
         $this->log_air($id,$request->nilai);
         return $grafik->id;
     }
-    public function data_bmkg()
-    {
-        $bandung = [];
-        $response = Http::get('https://cuaca.umkt.ac.id/api/cuaca/DigitalForecast-JawaBarat.xml');
-        $data = $response->collect();
-        foreach ($data['row']['data']['forecast']['area'] as $key => $value) {
+    // public function data_bmkg()
+    // {
+    //     $bandung = [];
+    //     $response = Http::get('https://cuaca.umkt.ac.id/api/cuaca/DigitalForecast-JawaBarat.xml');
+    //     $data = $response->collect();
+    //     foreach ($data['row']['data']['forecast']['area'] as $key => $value) {
 
-            if($value['@description'] == 'Bandung'){
-                array_push($bandung,array_merge($value,$data['row']['data']['forecast']['issue']));
-            }
-        }
-        file_put_contents(public_path('bmkg.json'),json_encode($bandung));
-    }
+    //         if($value['@description'] == 'Bandung'){
+    //             array_push($bandung,array_merge($value,$data['row']['data']['forecast']['issue']));
+    //         }
+    //     }
+    //     file_put_contents(public_path('bmkg.json'),json_encode($bandung));
+    // }
     public function get_data_bmkg()
     {
-        $bmkg = file_get_contents(public_path('bmkg.json'));
+        $bmkg = file_get_contents(public_path('bmkg/bandung.json'));
         $data = json_decode($bmkg,true);
         // dd($data);
-        $currentDay = Carbon::now()->day()->format('m');
-        if($data[0]['day'] !== $currentDay){
-            $this->data_bmkg();
-        }
+        // $currentDay = Carbon::now()->day()->format('m');
+        // if($data[0]['day'] !== $currentDay){
+        //     $this->data_bmkg();
+        // }
         $response = [];
         foreach ($data as $key => $value) {
             $dataCuaca = [];

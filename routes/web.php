@@ -14,15 +14,20 @@ use App\Traits\RouteTrait;
 */
 
 Route::get('/', function () {
+    if (Auth::check())
+    {
+        return redirect('/home');
+    }
     return view('auth.login');
 });
 
 Auth::routes();
-RouteTrait::getRouteFile(__DIR__.'/web/');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+Route::get('/home', [App\Http\Controllers\DashboardController::class, 'index'])
         ->name('home')
         ->middleware('auth');
+RouteTrait::getRouteFile(__DIR__.'/web/');
+
 Route::get('/get_data',[App\Http\Controllers\HomeController::class, 'get_data']);
 Route::get('/create-alat-pengukur',[App\Http\Controllers\HomeController::class, 'create']);
 Route::post('/create-alat-pengukur',[App\Http\Controllers\HomeController::class, 'save']);

@@ -142,16 +142,9 @@
         /* Realtime line chart ChartJS */
         const jmlAlat = "{{count($alat)}}";
         $(document).ready(function() {
-            setInterval(function(){
-                // get data BGKG
-                apps.ajaxPerDay.run('/api/get-data-bmkg', function(data){
-                    console.log(data);
-                });
-
-                localforage.getItem('data_bmg').then(function(value) {
-                    // This code runs once the value has been loaded
-                    // from the offline store.
-                    const dataBmg = value[0];
+            apps.ajaxPerDay.run('/api/get-data-bmkg', function(data){
+                    // console.log(data);
+                    const dataBmg = data[0];
                     // console.log(dataBmg);
                     $('#kota').html(dataBmg.kota);
                     $('#propinsi').html(dataBmg.propinsi);
@@ -174,13 +167,7 @@
                         <span class="info-box-text">${dataBmg.cuaca[8].desc}</span>
                         <span class="info-box-number">${dataBmg.cuaca[8].value[1]}</span>
                     `)
-
-                }).catch(function(err) {
-                    // This code runs if there were any errors
-                    console.log(err);
-                });
-            },3000);
-
+            });
             apps.chartLevelAir(jmlAlat);
             apps.dataTable($('#example'));
         });
