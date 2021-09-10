@@ -10,100 +10,146 @@ trait MenuTrait {
         $event->menu->add([
             'text' => 'KETINGGIAN AIR',
             'icon'    => 'fas fa-water',
-            'url' => '/flood-banjir',
-        ]);
-        $event->menu->add([
-            'text' => 'Alat Pengukur Air',
-            // 'icon'    => 'fas fa-fw fa-tachometer-alt',
             'submenu' => [
                 [
-                    'text' => 'Tambah Alat',
-                    'url' => '/create-alat-pengukur',
+                    'text' => 'Dashboard',
+                    'url' => '/flood-banjir',
+                    'icon'    => 'fas fa-fw fa-folder',
                 ],
                 [
-                    'text' => 'Report',
-                    'url' => 'home/report',
-                ],
+                    'text' => 'Device',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'Tambah Alat',
+                            'url' => '/create-alat-pengukur',
+                            'shift'   => 'ml-1',
+                        ],
+                        [
+                            'text' => 'Report',
+                            'url' => 'home/report',
+                            'shift'   => 'ml-1',
+                        ],
+                    ]
+                ]
             ]
         ]);
-
 
         $event->menu->add([
             'text' => 'PEOPLE COUNTING',
             'icon'    => 'fas fa-users-cog',
-            'url' => '#',
-        ]);
-        $event->menu->add([
-            'text' => 'Alat People Counting',
             'submenu' => [
                 [
-                    'text' => 'Tambah Alat',
-                    'url' => '#',
+                    'text' => 'Dashboard',
+                    'url' => '/people-counting',
+                    'icon'    => 'fas fa-fw fa-folder',
                 ],
                 [
-                    'text' => 'Report',
-                    'url' => '#',
-                ],
+                    'text' => 'Device',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'Tambah Alat',
+                            'url' => '/people-counting/create-alat',
+                            'shift'   => 'ml-1',
+
+                        ],
+                        [
+                            'text' => 'Report',
+                            'url' => 'people-counting/report',
+                            'shift'   => 'ml-1',
+
+                        ],
+                    ]
+                ]
             ]
         ]);
-
-
         $event->menu->add([
             'text' => 'MONITORING SUHU',
             'icon'    => 'fas fa-temperature-high',
-            'url' => '#',
-        ]);
-        $event->menu->add([
-            'text' => 'Alat Monitoring Suhu',
             'submenu' => [
                 [
-                    'text' => 'Tambah Alat',
-                    'url' => '#',
+                    'text' => 'Dashboard',
+                    'url' => '/deteksi-suhu',
+                    'icon'    => 'fas fa-fw fa-folder',
                 ],
                 [
-                    'text' => 'Report',
-                    'url' => '#',
-                ],
+                    'text' => 'Device',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'Tambah Alat',
+                            'url' => '#',
+                            'shift'   => 'ml-1',
+
+                        ],
+                        [
+                            'text' => 'Report',
+                            'url' => '#',
+                            'shift'   => 'ml-1',
+
+                        ],
+                    ]
+                ]
             ]
         ]);
-
-
         $event->menu->add([
             'text' => 'CONTROL AC',
             'icon'    => 'fas fa-digital-tachograph',
-            'url' => '#',
-        ]);
-        $event->menu->add([
-            'text' => 'Alat Control AC',
             'submenu' => [
                 [
-                    'text' => 'Tambah Alat',
+                    'text' => 'Dashboard',
                     'url' => '#',
+                    'icon'    => 'fas fa-fw fa-folder',
                 ],
                 [
-                    'text' => 'Report',
-                    'url' => '#',
-                ],
+                    'text' => 'Device',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'Tambah Alat',
+                            'url' => '#',
+                            'shift'   => 'ml-1',
+
+                        ],
+                        [
+                            'text' => 'Report',
+                            'url' => '#',
+                            'shift'   => 'ml-1',
+
+                        ],
+                    ]
+                ]
             ]
         ]);
-
 
         $event->menu->add([
             'text' => 'PANEL LISTRIK',
             'icon'    => 'fas fa-bolt',
-            'url' => '#',
-        ]);
-        $event->menu->add([
-            'text' => 'Alat Panel Listrik',
             'submenu' => [
                 [
-                    'text' => 'Tambah Alat',
+                    'text' => 'Dashboard',
                     'url' => '#',
+                    'icon'    => 'fas fa-fw fa-folder',
                 ],
                 [
-                    'text' => 'Report',
-                    'url' => '#',
-                ],
+                    'text' => 'Device',
+                    'icon'    => 'fas fa-fw fa-folder',
+                    'submenu' => [
+                        [
+                            'text' => 'Tambah Alat',
+                            'url' => '#',
+                            'shift'   => 'ml-1',
+
+                        ],
+                        [
+                            'text' => 'Report',
+                            'url' => '#',
+                            'shift'   => 'ml-1',
+
+                        ],
+                    ]
+                ]
             ]
         ]);
 
