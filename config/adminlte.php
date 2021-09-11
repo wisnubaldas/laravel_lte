@@ -278,6 +278,16 @@ return [
     */
 
     'plugins' => [
+        'jqueryKnob'=>[
+            'active'=>false,
+            'files'=>[
+                [
+                    'type'=>'js',
+                    'asset'=>true,
+                    'location'=>'/vendor/jquery-knob/jquery.knob.min.js'
+                ]
+            ],
+        ],
         'CssAnimate'=>[
             'active'=>true,
             'files'=>[

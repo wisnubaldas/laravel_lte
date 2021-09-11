@@ -43,19 +43,7 @@
 <script>
 
     $(document).ready(function(){
-        // function updateBox(){
-        //     let rep = Math.floor(200 * Math.random());
-        //     const batas = (rep > 100)?'Batas orang berlebihan':'Batas orang Normal';
-        //     peopleCounting.card.el = 'pTotal';
-        //     peopleCounting.card.init({
-        //         theme:'danger',
-        //         text:rep+' Orang/100 kapasitas',
-        //         icon:'fas fa-lg fa-people-arrows text-teal',
-        //         description:batas,
-        //         progress:Math.round(rep * 100 / 100)
-        //     });
-        // }
-        // setInterval(updateBox, 5000);
+        peopleCounting.liveChart.init();
 
         // ##### Small Box ###### //
         let startUpdateProcedure = () =>

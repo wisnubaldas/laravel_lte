@@ -4,13 +4,41 @@
 
 @section('content_header')
 <div class="row">
-    <h1>suhu</h1>
+    <div class="col-lg-3 ">
+        <div class="info-box">
+            <div class="info-box-content m-1 p-1">
+                <x-knob label="Sensor Suhu 1" id="knb1"/>
+            </div>
+          </div>
+    </div>
+    <div class="col-lg-3 ">
+        <div class="info-box">
+            <div class="info-box-content m-1 p-1">
+                <x-knob label="Sensor Suhu 2" id="knb2"/>
+            </div>
+          </div>
+    </div>
+    <div class="col-lg-3 ">
+        <div class="info-box">
+            <div class="info-box-content m-1 p-1">
+                <x-knob label="Sensor Suhu 3" id="knb3"/>
+            </div>
+          </div>
+    </div>
+    <div class="col-lg-3 ">
+        <div class="info-box">
+            <div class="info-box-content m-1 p-1">
+                <x-knob label="Sensor Suhu 4" id="knb4"/>
+            </div>
+          </div>
+    </div>
 </div>
 
 @stop
 
 @section('plugins.Chartjs', true)
 @section('plugins.Datatables', true)
+@section('plugins.jqueryKnob', true)
 
 @section('content')
 <div class="row">
@@ -24,54 +52,68 @@
 @push('js')
 <script src="{{ url('myapp/monitor-suhu.js') }}" ></script>
 <script>
-
+    // random number untuk data sample
+    // bisa ganti pake ajax
+    let randomNumber = function(){
+        return Math.floor(100 * Math.random());
+    }
     $(document).ready(function(){
+
+        // sample knob
+        let knobSample = (id,callback) => {
+            monitorSuhu.knob.init(id,{
+                readOnly:true,
+                    'format' : function (value) {
+                        return value + '\xB0'+'C';
+                    }
+            });
+            return callback()
+        }
+
+        let knoppi = () => {
+                knobSample('knb1',function(){
+                    monitorSuhu.knob.updateData(randomNumber())
+                })
+                knobSample('knb2',function(){
+                    monitorSuhu.knob.updateData(randomNumber())
+                })
+                knobSample('knb3',function(){
+                    monitorSuhu.knob.updateData(randomNumber())
+                })
+                knobSample('knb4',function(){
+                    monitorSuhu.knob.updateData(randomNumber())
+                })
+            }
+
+        setInterval(knoppi, 5000);
+
         monitorSuhu.liveChart.init();
-        monitorSuhu.liveChart.addData();
-        // function updateBox(){
-        //     let rep = Math.floor(200 * Math.random());
-        //     const batas = (rep > 100)?'Batas orang berlebihan':'Batas orang Normal';
-        //     peopleCounting.card.el = 'pTotal';
-        //     peopleCounting.card.init({
-        //         theme:'danger',
-        //         text:rep+' Orang/100 kapasitas',
-        //         icon:'fas fa-lg fa-people-arrows text-teal',
-        //         description:batas,
-        //         progress:Math.round(rep * 100 / 100)
-        //     });
-        // }
-        // setInterval(updateBox, 5000);
+        // monitorSuhu.liveChart.addData('Sensor 4',30);
+        // monitorSuhu.liveChart.updateData([1,2,3,4]);
 
-        // ##### Small Box ###### //
-        let startUpdateProcedure = () =>
+        let sampleData = () =>
         {
-            let rep = Math.floor(1000 * Math.random());
-            let idx = rep < 100 ? 0 : (rep > 500 ? 2 : 1);
-            let text = 'Pengunjung ' + ['Kurang', 'Cukup', 'Berlebih'][idx];
-            let icon = 'fas fa-people-arrows ' + ['text-success', 'text-warning', 'text-danger'][idx];
-            // peopleCounting.smallBox.init('sbUpdatable',{
-            //         rep:rep,
-            //         idx:idx,
-            //         text:text,
-            //         icon:icon,
-            //         title:rep
-            // });
-            // peopleCounting.smallBox.init('sbUpdatable',{
-            //         rep:rep,
-            //         idx:idx,
-            //         text:text,
-            //         icon:icon,
-            //         title:rep,
-            // });
-            // Simulate loading procedure.
-            // peopleCounting.smallBox.sBox.toggleLoading();
-            // Wait and update the data.
-            // setTimeout(peopleCounting.smallBox.init, 1000);
-        };
+            monitorSuhu.liveChart.updateData([
+                randomNumber(),
+                randomNumber(),
+                randomNumber(),
+                randomNumber(),
+                randomNumber(),
+            ],{
+                scales:{
+                    y:{
+                        type: 'linear',
+                        min: 0,
+                        max: 100
+                    }
+                }
+            });
+            // monitorSuhu.liveChart.removeData();
+            // monitorSuhu.liveChart.addData('Sensor-'+randomNumber(),randomNumber());
 
-        setInterval(startUpdateProcedure, 5000);
+        }
 
-        // chart js
+        setInterval(sampleData, 5000);
 
     })
 </script>

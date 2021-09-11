@@ -1,28 +1,57 @@
-// let peopleCounting = {
-//     smallBox:{
-//         sBox:null,
-//         option:null,
-//         init:function(el,option){
-//             this.sBox = new _AdminLTE_SmallBox(el);
-//             this.sBox.update(option);
-//         }
-//     }
-// }
 
 let monitorSuhu = {
+    knob:{
+        _between:function(x,min,max){
+            return x >= min && x <= max;
+        },
+        updatePropColor:function(data){
+            console.log(data);
+            let color = null;
+            if (this._between(data, 1, 50)) {
+                color = '#28a745';
+            }
+            if (this._between(data, 51, 80)) {
+                color = '#ffc107';
+            }
+            if (this._between(data, 81, 100)) {
+                color = '#dc3545';
+            }
+            $(this.el).trigger(
+                'configure',
+                {
+                    "fgColor":color,
+                }
+            );
+        },
+        updateData:function(data){
+            this.updatePropColor(data);
+            $(this.el).val(data).trigger('change');
+        },
+        init:function(el,option){
+            this.el = document.getElementById(el);
+            return $(this.el).knob(option);
+        }
+
+    },
     liveChart:{
-        addData:function(){
-            this.ctx.addData('kancut 01',100);
+        removeData:function(){
+            this.ctx.removeData(0,1);
+        },
+        updateData:function(data,option){
+            this.ctx.updateData(data,option);
+        },
+        addData:function(label,data){
+            this.ctx.addData(label,data);
         },
         chartNya:function(){
             this.ctx = new _liveChart('crot');
             this.ctx.init({
-                label:"kancut chart",
-                data:[12, 19, 3, 5, 50],
-                dataLabel:['Sensor 01', 'Sensor 02', 'Sensor 03', 'Sensor 04', 'Sensor 05']
+                type:'bar',
+                label:'bar chart',
+                data:[0,0,0,0,0],
+                dataLabel:['S1','S2','S3','S4','S5'],
             });
             return this.ctx;
-            // console.log(myChart.myChart);
         },
         init:function(){
             this.chartNya();
