@@ -66,8 +66,7 @@
 @section('plugins.Datatables', true)
 
 @section('content')
-
-
+<x-horizontal-line-chart id="h-line" height='150' width='500' />
 @stop
 
 @push('js')
