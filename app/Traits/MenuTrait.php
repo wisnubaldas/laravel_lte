@@ -6,7 +6,7 @@ trait MenuTrait {
     public static function buildMenu($event)
     {
         // Add some items to the menu...
-
+        // ketinngian air
         $event->menu->add([
             'text' => 'KETINGGIAN AIR',
             'icon'    => 'fas fa-water',
@@ -34,7 +34,7 @@ trait MenuTrait {
                 ]
             ]
         ]);
-
+        // people count
         $event->menu->add([
             'text' => 'PEOPLE COUNTING',
             'icon'    => 'fas fa-users-cog',
@@ -64,6 +64,7 @@ trait MenuTrait {
                 ]
             ]
         ]);
+        // monitoring suhu
         $event->menu->add([
             'text' => 'MONITORING SUHU',
             'icon'    => 'fas fa-temperature-high',
@@ -93,13 +94,14 @@ trait MenuTrait {
                 ]
             ]
         ]);
+        // kontrol AC
         $event->menu->add([
             'text' => 'CONTROL AC',
             'icon'    => 'fas fa-digital-tachograph',
             'submenu' => [
                 [
                     'text' => 'Dashboard',
-                    'url' => '#',
+                    'url' => '/kontrol-ac',
                     'icon'    => 'fas fa-fw fa-folder',
                 ],
                 [
@@ -122,7 +124,7 @@ trait MenuTrait {
                 ]
             ]
         ]);
-
+        // panel listrik
         $event->menu->add([
             'text' => 'PANEL LISTRIK',
             'icon'    => 'fas fa-bolt',
@@ -152,8 +154,7 @@ trait MenuTrait {
                 ]
             ]
         ]);
-
-
+        // setting
         $event->menu->add([
             'text' => 'SETTING',
             'icon'    => 'fas fa-fw fa-tasks',
