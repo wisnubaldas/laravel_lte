@@ -40,9 +40,9 @@
                 serverSide: true,
                 ajax: '/report',
                 columns: [
-                    {data: 0, name: 'id'},
-                    {data: 1, name: 'pengukur_air_id'},
-                    {data: 2, name: 'nilai'},
+                    {data: 'id'},
+                    {data: 'pengukur_air_id'},
+                    {data: 'nilai'},
                 ]
             });
         });
