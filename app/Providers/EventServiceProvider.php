@@ -40,8 +40,12 @@ class EventServiceProvider extends ServiceProvider
                 'url' => '/create-alat-pengukur',
             ]);
             $event->menu->add([
+                'text' => 'Set Nilai Air',
+                'url' => '/set-nilai',
+            ]);
+            $event->menu->add([
                 'text' => 'Report',
-                'url' => 'home/report',
+                'url' => '/report',
             ]);
         });
     }

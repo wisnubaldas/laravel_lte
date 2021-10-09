@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Arfa Robot')
+@section('title', 'Monitoring Banjir')
 
 @section('content_header')
 <div class="row">
@@ -64,7 +64,7 @@
         </div>
         <div class="col-4">
             @foreach ($alat as $item)
-                <div class="info-box {{$item->alaram->status == 0?'bg-gradient-success':'bg-gradient-danger animate__animated animate__flash animate__infinite'}}">
+                <div class="info-box {{isset($item->alaram->status) == 0?'bg-gradient-success':'bg-gradient-danger animate__animated animate__flash animate__infinite'}}">
 
                     <span class="info-box-icon">
                         <i class="far fa-bell fa-2x"></i>
@@ -78,7 +78,7 @@
                         <div class="progress-bar" style="width: 100%"></div>
                         </div>
                         <span class="progress-description">
-                        Waktu Update: {{$item->alaram->updated_at}}
+                        Waktu Update: {{isset($item->alaram->updated_at)}}
                         </span>
                     </div>
                 <!-- /.info-box-content -->
@@ -106,10 +106,10 @@
                             <td>{{$item->nama}}</td>
                             <td>{{$item->posisi}}</td>
                             <td>{{$item->waktu}}</td>
-                            <td id="last-val-{{$item->grafik_air->id}}">{{$item->grafik_air->nilai}}</td>
+                            <td id="last-val-{{isset($item->grafik_air->id)}}">{{isset($item->grafik_air->nilai)}}</td>
                             <td>{{($item->status == 1)?'ON':'OFF'}}</td>
                             <td>
-                                <a class="btn {{($item->alaram->status == 0)?'btn-success':'btn-danger'}}" href="/power-alaram/{{$item->id}}">
+                                <a class="btn {{(isset($item->alaram->status) == 0)?'btn-success':'btn-danger'}}" href="/power-alaram/{{$item->id}}">
                                     <i class="fas fa-power-off"></i>
                                 </a>
                             </td>

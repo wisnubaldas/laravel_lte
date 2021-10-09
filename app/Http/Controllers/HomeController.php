@@ -81,5 +81,26 @@ class HomeController extends Controller
     {
         return AlaramAir::where('pengukur_air_id',$id)->first();
     }
+    public function set_nilai(Request $request)
+    {
+        if($request->method() == 'POST')
+        {
+            $grafik = GrafikAir::first();
+            if($grafik)
+            {
+                $grafik->batas_air = $request->batas_air;
+                $grafik->nilai_awal = $request->nilai_awal;
+                $grafik->save();
+            }
+
+            return back();
+        }
+        return view('set-nilai');
+    }
+    public function report(Type $var = null)
+    {
+        $log = LogAir::all();
+        return view('report',compact('log'));
+    }
 
 }

@@ -28,6 +28,12 @@ Route::post('/create-alat-pengukur',[App\Http\Controllers\HomeController::class,
 Route::get('/power-alaram/{id}',[App\Http\Controllers\HomeController::class, 'alaram_on_off']);
 Route::get('/nilai-air',[App\Http\Controllers\HomeController::class, 'nilai_air']);
 Route::post('/nilai-air',[App\Http\Controllers\HomeController::class, 'nilai_air']);
+Route::get('/set-nilai',[App\Http\Controllers\HomeController::class, 'set_nilai']);
+Route::post('/set-nilai',[App\Http\Controllers\HomeController::class, 'set_nilai']);
+Route::get('/report',[App\Http\Controllers\HomeController::class, 'report']);
+
+
+
 
 
 
