@@ -7,7 +7,7 @@ use App\Models\GrafikAir;
 use App\Models\PengukurAir;
 use App\Models\LogAir;
 use App\Models\AlaramAir;
-
+use DataTables;
 class HomeController extends Controller
 {
     /**
@@ -97,8 +97,13 @@ class HomeController extends Controller
         }
         return view('set-nilai');
     }
-    public function report(Type $var = null)
+    public function report(Request $request)
     {
+        if($request->ajax())
+        {
+            $users = LogAir::select(['id', 'pengukur_air_id', 'nilai']);
+            return DataTables::of($users)->make();
+        }
         $log = LogAir::all();
         return view('report',compact('log'));
     }

@@ -13,56 +13,33 @@
 @section('content')
     <div class="row">
 
-{{-- Setup data for datatables --}}
-@php
-$heads = [
-    'ID',
-    'Nilai',
-];
+        <table class="table table-bordered" id="users-table">
+            <thead>
+              <tr>
+                <th style="width: 10px">#</th>
+                <th>ID</th>
+                <th>Nilai</th>
+              </tr>
+            </thead>
+            <tbody>
 
-$btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                <i class="fa fa-lg fa-fw fa-pen"></i>
-            </button>';
-$btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
-                  <i class="fa fa-lg fa-fw fa-trash"></i>
-              </button>';
-$btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                   <i class="fa fa-lg fa-fw fa-eye"></i>
-               </button>';
-
-$config = [
-    'order' => [[1, 'asc']],
-    'columns' => [null, null],
-];
-@endphp
-
-{{-- Minimal example / fill data using the component slot --}}
-<x-adminlte-datatable id="table1" :heads="$heads">
-    @foreach($log as $row)
-        <tr>
-            <td>{{$row->pengukur_air_aid}}</td>
-            <td>{{$row->nilai}}</td>
-        </tr>
-    @endforeach
-</x-adminlte-datatable>
-
+            </tbody>
+          </table>
 @stop
 @push('css')
-<link rel="stylesheet" href="{{url('vendor/select2/css/select2.min.css')}}">
-<link rel="stylesheet" href="{{url('vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
 @endpush
 @push('js')
-    <script src="{{url('vendor/select2/js/select2.full.min.js')}}"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ url('myapp/home.js') }}" ></script>
     <script>
-        let frm = apps.template.form;
-        $(document).ready(function () {
-            $('.select2bs4').select2({
-                theme: 'bootstrap4'
-            })
-            apps.setNilaiAlat.onSelectAlat($('.select2bs4'),function(a){
-                frm.NilaiAlat(a,$('#frm-setnilai'))
+        $(document).ready(function() {
+            $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: '/report'
             });
-        })
+        });
     </script>
 @endpush
