@@ -101,7 +101,7 @@ class HomeController extends Controller
     {
         if($request->ajax())
         {
-            $users = LogAir::select(['id', 'pengukur_air_id', 'nilai']);
+            $users = LogAir::select(['id', 'pengukur_air_id', 'nilai'])->orderBy('id','desc');
             return DataTables::of($users)->make();
         }
         $log = LogAir::all();
