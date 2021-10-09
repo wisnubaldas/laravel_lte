@@ -38,7 +38,12 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '/report'
+                ajax: '/report',
+                columns: [
+                    {data: 0, name: 'id'},
+                    {data: 1, name: 'pengukur_air_id'},
+                    {data: 2, name: 'nilai'},
+                ]
             });
         });
     </script>
