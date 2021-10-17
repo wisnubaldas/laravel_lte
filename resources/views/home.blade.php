@@ -64,7 +64,7 @@
         </div>
         <div class="col-4">
             @foreach ($alat as $item)
-                <div class="info-box {{isset($item->alaram->status) == 0?'bg-gradient-success':'bg-gradient-danger animate__animated animate__flash animate__infinite'}}">
+                <div class="info-box {{$item->alaram->status == '0'?'bg-gradient-success':'bg-gradient-danger animate__animated animate__flash animate__infinite'}}">
 
                     <span class="info-box-icon">
                         <i class="far fa-bell fa-2x"></i>
