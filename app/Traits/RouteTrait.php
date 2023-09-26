@@ -11,7 +11,7 @@ trait RouteTrait
             $rdi = new \RecursiveDirectoryIterator($path);
             $it = new \RecursiveIteratorIterator($rdi);
             while ($it->valid()) {
-                if (! $it->isDot() && $it->isFile() && $it->isReadable() && $it->current()->getExtension() === 'php') {
+                if (! $it->isDot() && $it->isFile() && $it->isReadable() && $it->current()->getExtension() == 'php') {
                     require $it->key();
                 }
                 $it->next();
